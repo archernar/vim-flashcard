@@ -6,13 +6,14 @@
 
 let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
-let s:dashcount = 60 
+let g:dashcount = 60 
 
 function! g:FlashCard(...)
      let g:FLASHCARDNUM  = 1
      let g:FLASHCARDFILE = a:1
-     call s:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+     call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 endfunction
+
 function! g:FlashCardExit()
     silent exe "bd!"
     echom ""
@@ -21,10 +22,10 @@ endfunction
 function! g:FlashCardNext(...)
     exe "bd!"
     let g:FLASHCARDNUM = g:FLASHCARDNUM + a:1 
-    call s:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+    call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 endfunction
 
-function! s:FlashCardCount()
+function! g:FlashCardCount()
     let l:n = 1 
     let l:c = 0
     silent exe "normal gg0"
@@ -42,7 +43,7 @@ function! s:FlashCardCount()
     return l:c
 endfunction
 
-function! s:FlashCardOpen(...)
+function! g:FlashCardOpen(...)
         let l:filename = a:1
         let l:cardnumber = a:2
         exe "set nopaste"
@@ -52,7 +53,7 @@ function! s:FlashCardOpen(...)
             silent exe "tabnew " . l:f
             silent exe "set buftype=nowrite"
 
-            let l:fcc = s:FlashCardCount()
+            let l:fcc = g:FlashCardCount()
             nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F2> :call g:FlashCardNext(-1)<cr>
@@ -82,7 +83,7 @@ function! s:FlashCardOpen(...)
 				let l:n = search("FLASH",'b')
 				silent exe "normal gg0"
 				silent exe "normal " . l:n . "dd"
-				call s:FlashCardDisplay()
+				call g:FlashCardDisplay()
             endif
             exe "setlocal readonly"
 
@@ -91,7 +92,7 @@ function! s:FlashCardOpen(...)
         exe "set paste"
 endfunction
 
-function! s:FlashCardDisplay()
+function! g:FlashCardDisplay()
     silent exe "set paste"
     silent exe "normal! gg0VG"
     silent exe "normal! \"ay"
@@ -100,8 +101,8 @@ function! s:FlashCardDisplay()
     silent exe "sort!"
     silent exe "normal! \<Esc>"
 
-    if ( s:dashcount < len(getline('.')) )
-        let s:dashcount = len(getline('.'))
+    if ( g:dashcount < len(getline('.')) )
+        let g:dashcount = len(getline('.'))
     endif
 
     silent exe "normal! gg0VGd"
@@ -110,12 +111,12 @@ function! s:FlashCardDisplay()
     silent exe "normal gg0"
     silent exe "%s/^/                                       /"
     silent exe "normal gg0"
-    silent exe "normal! O                                     + " . repeat("-", s:dashcount) . " +\<Esc>"
+    silent exe "normal! O                                     + " . repeat("-", g:dashcount) . " +\<Esc>"
     silent exe "normal! 7O\<Esc>"
     silent exe "normal G0"
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
-    silent exe "normal! o                                     + " . repeat("-", s:dashcount) . " +\<Esc>"
-    silent exe "normal! o                                       " . repeat(" ", s:dashcount-46) . "https://github.com/archernar/vim-flashcard.git\<Esc>" 
+    silent exe "normal! o                                     + " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! o                                       " . repeat(" ", g:dashcount-46) . "https://github.com/archernar/vim-flashcard.git\<Esc>" 
     nnoremap <silent> <buffer> <Esc>  :call g:FlashCardExit()<cr>
     silent exe "set nopaste"
 endfunction
