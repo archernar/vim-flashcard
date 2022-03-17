@@ -13,7 +13,7 @@ git add pushit
 git add README.md
 git commit -m "Update"
 git push -u origin main
-REPO=vim-Flashcard
+REPO=vim-flashcard
 rm -rf $HOME/.vim/bundle/$REPO
 vim  -c ":PluginInstall! $REPO" -c ":qa!"
 #-------------------------------------------------------------------------------------
