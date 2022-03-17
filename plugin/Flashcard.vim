@@ -1,3 +1,9 @@
+"
+"
+" nnoremap <F3> :call g:FlashCard($HOME . "/1.fc")<cr> 
+"
+"
+
 let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
 let s:dashcount = 60 
