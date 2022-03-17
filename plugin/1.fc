@@ -1,0 +1,164 @@
+
+FLASHCARD 1
+1 Moving by Characters, Words and Tokens
+
+h – move the cursor left
+j – move the cursor down
+k – move the cursor up
+l – move the cursor right
+
+5j the cursor moves down 5 lines.
+
+b – move to the start of a word
+B – move to the start of a token
+w – move to the start of the next word
+W – move to the start of the next token
+e – move to the end of a word
+E – move to the end of a token
+FLASHCARD 2
+2 Movement
+
+;   - repeat previous f, t, F or T movement
+,   - repeat previous f, t, F or T movement, backwards
+}   - jump to next paragraph
+{   - jump to previous paragraph
+
+Moving by Lines
+
+0 (zero) – jump to the beginning of the line
+$ – jump to the end of the line
+^ – jump to the first (non-blank) char of the line
+#G / #gg / :# – move to a line number
+FLASHCARD 3
+3 Moving by Screens
+
+Ctrl + b – move back one full screen
+Ctrl + f – move forward one full screen
+Ctrl + d – move forward 1/2 a screen
+Ctrl + u – move back 1/2 a screen
+Ctrl + e – move screen down one line (not cursor)
+Ctrl + y – move screen up one line (not cursor)
+Ctrl + o – move backward through the jump history
+Ctrl + i – move forward through the jump history
+
+H  – move to the top of the screen (H=high)
+M  – move to the middle of the screen (M=middle)
+L  – move to the bottom of the screen (L=low)
+zz - center cursor on screen
+FLASHCARD 4
+4 Search in File
+
+*     – jump to the next instance of the current word
+#     – jump to previous instance of the current word
+/ptrn – search forward for the specified pattern
+?ptrn – search backward for the specified pattern
+n     – repeat the search in the same direction
+N     – repeat the search in the opposite direction
+
+Macros
+
+qa  – record macro a
+q   – stop recording macro
+@a  – run macro a
+@@  – run last macro again
+FLASHCARD
+5 Visual Mode
+
+gv - last visual selection
+v  – select text using character mode
+V  – select lines using line mode
+o  – move from one end of the selected text to the other
+aw – select a word
+ab – select a block with ()
+aB – select a block with {}
+at – select a block with <>
+ib – select inner block with ()
+iB – select inner block with {}
+it – select inner block with <>
+Ctrl+v – select text using block mode
+FLASHCARD
+6 Editing Text
+
+r        – replace a single char (goto command mode)
+cc       – replace an entire line (goto insert mode)
+C / c$   – replace from the cursor to the end of a line
+cw       – replace from the cursor to the end of a word
+s        – delete a character (goto insert mode)
+J        – merge the line below with a space in between
+gJ       – merge the line below with no space in between t
+u        – undo
+Ctrl + r – redo
+.        – repeat last command
+FLASHCARD
+7 Working with Multiple Files
+
+:e fname  – open a file in a new buffer
+:bn       – move to the next buffer
+:bp       – go back to previous buffer
+:bd       – close buffer
+:b#       – move to the specified buffer (by number)
+:b fname  – move to a buffer (by name)
+:ls       – list all open buffers
+:sp fname – open a file in a new buffer with horz split
+:vs fname – open a file in a new buffer with vert split
+:vert ba  – edit all files as vertical viewports
+:tab ba   – edit all buffers as tabs
+gt        – move to next tab
+gT        – move to previous tab
+FLASHCARD
+8 Marks and Jumps
+
+m[a-z] – mark text using character mode (from a to z)
+M[a-z] – mark lines using line mode (from a to z)
+`a     - jump to position marked a
+`y`a   – yank text to position marked >a>
+`.     – jump to last change in file
+`0     – jump to position where Vim was last exited
+``     – jump to last jump
+:marks – list all marks
+:jumps – list all jumps
+:changes – list all changes
+Ctrl+i – move to next instance in jump list
+Ctrl+o – move to previous instance in jump list
+g, – move to next instance in change list
+g; – move to previous instance in change list
+FLASHCARD
+9 Macros
+
+q<k>  - enter and exit macro for key <k>
+@<k>  - execute macro <k>
+@@    - execute last executed macro
+
+Text Objects
+
+word:           w   sentence:       s    paragraph:    p
+single quotes:  a'  double quotes:  a"   parentheses:  a)
+brackets:       a]  braces:         a}   HTML tags:    at
+angle brackets: a>
+
+ci<o>  - change inner text object
+ca<o>  - change around the text object (incl whitespace)
+FLASHCARD
+10 Reminders
+
+i     - enter insert mode
+I     - goto start of line and enter insert mode
+FLASHCARD
+11 bash header
+
+#!/bin/bash
+SCR=$(echo "$0" | gawk '{n=split($0, a, "/"); print a[n];}')
+Tmp=/tmp/$$
+Tmp1="/tmp/"$SCR"_"$$
+Tmp2="/tmp/"$SCR"_"$$"_"$$
+Tmp3="/tmp/"$SCR"_"$$"_"$$"_"$$
+Tmp4="/tmp/"$SCR"_"$$"_"$$"_"$$"_"$$
+trap 'exit 0' INT HUP QUIT TERM ALRM USR1
+trap 'rm -f "$Tmp" "$Tmp1" "$Tmp2" "$Tmp3" "$Tmp4"' EXIT
+rm -f "$Tmp"  >/dev/null 2>&1
+rm -f "$Tmp1" >/dev/null 2>&1
+rm -f "$Tmp2" >/dev/null 2>&1
+rm -f "$Tmp3" >/dev/null 2>&1
+rm -f "$Tmp4" >/dev/null 2>&1
+FLASHCARD
+
