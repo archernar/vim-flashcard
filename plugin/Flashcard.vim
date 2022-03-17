@@ -116,7 +116,7 @@ function! s:FlashCardDisplay()
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
     silent exe "normal! o                                     + " . l:dashes . "\<Esc>"
     let l:dashes = repeat(" ", s:dashcount-46) 
-    silent exe "normal! o                                     + " . l:dashes . "https://github.com/archernar/vim-flashcard.git\<Esc>" 
+    silent exe "normal! o                                       " . l:dashes . "https://github.com/archernar/vim-flashcard.git\<Esc>" 
     silent exe "set nopaste"
 endfunction
 
