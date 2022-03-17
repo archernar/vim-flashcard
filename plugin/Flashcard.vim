@@ -54,7 +54,7 @@ function! g:FlashCardOpen(...)
             silent exe "set buftype=nowrite"
 
             let l:fcc = g:FlashCardCount()
-            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
+            " nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F2> :call g:FlashCardNext(-1)<cr>
             nnoremap <silent> <buffer> <F3> :call g:FlashCardNext(1)<cr>
@@ -117,7 +117,7 @@ function! g:FlashCardDisplay()
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
     silent exe "normal! o                                     + " . repeat("-", g:dashcount) . " +\<Esc>"
     silent exe "normal! o                                       " . repeat(" ", g:dashcount-46) . "https://github.com/archernar/vim-flashcard.git\<Esc>" 
-    nnoremap <silent> <buffer> <Esc>  :call g:FlashCardExit()<cr>
+    " nnoremap <silent> <buffer> <Esc>  :call g:FlashCardExit()<cr>
     silent exe "set nopaste"
 endfunction
 
