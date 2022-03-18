@@ -105,10 +105,10 @@ function! g:FlashCardDisplay()
         let g:dashcount = len(getline('.'))
     endif
 
-    let l:dent = 24 
-    if ( len(getline('.')) > 36)
-        let l:dent = 2 
-    endif
+    let l:dent = 12 
+"   if ( len(getline('.')) > 36)
+"       let l:dent = 2 
+"   endif
 
     silent exe "normal! gg0VGd"
     silent exe "normal! \"ap"
