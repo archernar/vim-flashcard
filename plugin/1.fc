@@ -161,4 +161,75 @@ rm -f "$Tmp2" >/dev/null 2>&1
 rm -f "$Tmp3" >/dev/null 2>&1
 rm -f "$Tmp4" >/dev/null 2>&1
 FLASHCARD
+String Functions Description
+
+asort(s [, d])
+Returns the number of elements in the source array s. The contents of s are sorted using gawk's
+normal rules for comparing values, and the indexes of the sorted values of s are replaced with
+sequential integers starting with 1.
+
+If the optional destination array d is specified, then s is first duplicated into d, and then d
+is sorted, leaving the indexes of the source array s unchanged.
+
+asorti(s [, d])
+Returns the number of elements in the source array s. The behavior is the same as that of asort(),
+except that the array indices are used for sorting, not the array values. When done, the array is
+indexed numerically, and the values are those of the original indices.
+
+The original values are lost; thus provide a second array if you wish to preserve the original.
+
+gensub(r, s, h [, t])
+Search the target string t for matches of the regular expression r. If h is a string beginning with g or
+G, then replace all matches of r with s. Otherwise, h is a number indicating which match of r to
+replace. If t is not supplied, $0 is used instead. Within the replacement text s, the sequence \n, where
+n is a digit from 1 to 9, may be used to indicate just the text that matched the n'th parenthesized
+subexpression. The sequence \0 represents the entire matched text, as does the character &. Unlike
+sub() and gsub(), the modified string is returned as the result of the function, and the original target
+string is not changed.
+
+gsub(r, s [, t])
+For each substring matching the regular expression r in the string t, substitute the string s, and return
+the number of substitutions. If t is not supplied, use $0. An & in the replacement text is replaced with
+the text that was actually matched. Use \& to get a literal &. (This must be typed as "\\&")
+index(s, t) Returns the index of the string t in the string s, or 0 if t is not present.
+(This implies that character indices start at one.)
+
+length([s])
+Returns the length of the string s, or the length of $0 if s is not supplied.
+
+match(s, r [, a])
+Returns the position in s where the regular expression r occurs, or 0 if r is not present, and sets the
+values of RSTART and RLENGTH. Note that the argument order is the same as for the ~ operator:
+str ~ re. If array a is provided, a is cleared and then elements 1 through n are filled with the portions
+of s that match the corresponding parenthesized subexpression in r. The 0'th element of a contains
+the portion of s matched by the entire regular expression r. Subscripts a[n, "start"], and a[n, "length"]
+provide the starting index in the string and length respectively, of each matching substring.
+
+split(s, a [, r])i
+Splits the string s into the array a on the regular expression r, and returns the number of fields.
+If r is omitted, FS is used instead. The array a is cleared first. Splitting behaves identically to
+field splitting.
+
+sprintf(fmt, expr-list)
+Prints expr-list according to fmt, and returns the resulting string.
+
+strtonum(str)
+Examines str, and returns its numeric value. If str begins with a leading 0, strtonum() assumes that
+str is an octal number. If str begins with a leading 0x or 0X, strtonum() assumes that str is a
+hexadecimal number.
+
+sub(r, s [, t])
+Just like gsub(), but only the first matching substring is replaced.
+
+substr(s, i [, n]) 
+Returns the at most n-character substring of s starting at i. If n is omitted, the rest of s is used.
+
+tolower(str)
+Returns a copy of the string str, with all the upper-case characters in str translated to their
+corresponding lower-case counterparts. Non-alphabetic characters are left unchanged.
+
+toupper(str)
+Returns a copy of the string str, with all the lower-case characters in str translated to their
+corresponding upper-case counterparts. Non-alphabetic characters are left unchanged. 
+FLASHCARD
 
