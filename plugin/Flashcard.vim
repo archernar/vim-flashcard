@@ -99,13 +99,19 @@ function! g:FlashCardDisplay()
     silent exe "sort!"
     silent exe "normal! \<Esc>"
 
+    let l:n = len(getline('.'))
+
     if ( g:dashcount < len(getline('.')) )
         let g:dashcount = len(getline('.'))
     endif
 
+    let l:dent = 24 
+    if ( len(getline('.')) > 36)
+        let l:dent = 2 
+    endif
+
     silent exe "normal! gg0VGd"
     silent exe "normal! \"ap"
-    let l:dent = 24 
     silent exe "normal gg0"
     silent exe "%s/^/" . repeat(" ", l:dent+2) . "/"
     silent exe "normal gg0"
