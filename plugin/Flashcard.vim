@@ -79,12 +79,10 @@ function! g:FlashCardOpen(...)
             endwhile
             silent exe "normal " . "2000" . "dd"
 
-            if ( 1 == 1 )
-				let l:n = search("FLASH",'b')
-				silent exe "normal gg0"
-				silent exe "normal " . l:n . "dd"
-				call g:FlashCardDisplay()
-            endif
+	    	let l:n = search("FLASH",'b')
+			silent exe "normal gg0"
+			silent exe "normal " . l:n . "dd"
+			call g:FlashCardDisplay()
             exe "setlocal readonly"
 
         endif
