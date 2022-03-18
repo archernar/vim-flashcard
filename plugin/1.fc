@@ -161,7 +161,12 @@ rm -f "$Tmp2" >/dev/null 2>&1
 rm -f "$Tmp3" >/dev/null 2>&1
 rm -f "$Tmp4" >/dev/null 2>&1
 FLASHCARD
-String Functions Description
+GAWK String Functions Description
+
+split(s, a [, r])i
+Splits the string s into the array a on the regular expression r, and returns the number of fields.
+If r is omitted, FS is used instead. The array a is cleared first. Splitting behaves identically to
+field splitting.
 
 asort(s [, d])
 Returns the number of elements in the source array s. The contents of s are sorted using gawk's
@@ -187,6 +192,9 @@ subexpression. The sequence \0 represents the entire matched text, as does the c
 sub() and gsub(), the modified string is returned as the result of the function, and the original target
 string is not changed.
 
+FLASHCARD
+GAWK String Functions Description
+
 gsub(r, s [, t])
 For each substring matching the regular expression r in the string t, substitute the string s, and return
 the number of substitutions. If t is not supplied, use $0. An & in the replacement text is replaced with
@@ -205,10 +213,6 @@ of s that match the corresponding parenthesized subexpression in r. The 0'th ele
 the portion of s matched by the entire regular expression r. Subscripts a[n, "start"], and a[n, "length"]
 provide the starting index in the string and length respectively, of each matching substring.
 
-split(s, a [, r])i
-Splits the string s into the array a on the regular expression r, and returns the number of fields.
-If r is omitted, FS is used instead. The array a is cleared first. Splitting behaves identically to
-field splitting.
 
 sprintf(fmt, expr-list)
 Prints expr-list according to fmt, and returns the resulting string.
@@ -217,6 +221,8 @@ strtonum(str)
 Examines str, and returns its numeric value. If str begins with a leading 0, strtonum() assumes that
 str is an octal number. If str begins with a leading 0x or 0X, strtonum() assumes that str is a
 hexadecimal number.
+FLASHCARD
+GAWK String Functions Description
 
 sub(r, s [, t])
 Just like gsub(), but only the first matching substring is replaced.
