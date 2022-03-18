@@ -109,7 +109,7 @@ function! g:FlashCardDisplay()
     silent exe "normal gg0"
     silent exe "%s/^/                                       /"
     silent exe "normal gg0"
-    silent exe "normal! O                                     + " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! O . repeat(" ", 30) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
     silent exe "normal! 7O\<Esc>"
     silent exe "normal G0"
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
