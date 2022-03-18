@@ -105,16 +105,16 @@ function! g:FlashCardDisplay()
 
     silent exe "normal! gg0VGd"
     silent exe "normal! \"ap"
-
+    let l:dent = 24 
     silent exe "normal gg0"
-    silent exe "%s/^/" . repeat(" ", 32) . "/"
+    silent exe "%s/^/" . repeat(" ", l:dent+2) . "/"
     silent exe "normal gg0"
-    silent exe "normal! O" . repeat(" ", 30) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
     silent exe "normal! 7O\<Esc>"
     silent exe "normal! G0"
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
-    silent exe "normal! o" . repeat(" ", 30) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
-    silent exe "normal! o" . repeat(" ", 30) . repeat(" ", g:dashcount-40) . "git@github.com:archernar/vim-flashcard.git\<Esc>" 
+    silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-40) . "git@github.com:archernar/vim-flashcard.git\<Esc>" 
     silent exe "normal! gg0"
     silent exe "set nopaste"
 endfunction
