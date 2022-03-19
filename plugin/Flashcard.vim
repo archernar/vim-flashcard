@@ -77,7 +77,8 @@ function! g:FlashCardOpen(...)
                 silent exe "normal l"
                 let l:c = l:c + 1 
             endwhile
-            silent exe "normal " . "50000" . "dd"
+            silent exe "normal! dG"
+            " silent exe "normal " . "50000" . "dd"
 
 	    	let l:n = search("FLASH",'b')
 			silent exe "normal gg0"
