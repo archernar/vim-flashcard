@@ -125,3 +125,7 @@ function! g:FlashCardDisplay()
     silent exe "set nopaste"
 endfunction
 
+
+function! s:LogIt(...)
+    silent exe "!echo 'Log:  " . a:1 .  "'>>/tmp/vimlog"
+endfunction
