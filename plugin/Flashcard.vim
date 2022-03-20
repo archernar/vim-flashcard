@@ -14,6 +14,12 @@ function! g:FlashCard(...)
      call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 endfunction
 
+function! g:FlashCardRaw(...)
+     let g:FLASHCARDFILE = a:1
+     call g:FlashCardOpenRaw(g:FLASHCARDFILE)
+endfunction
+
+
 function! g:FlashCardExit()
     silent exe "bd!"
     echom ""
@@ -78,7 +84,6 @@ function! g:FlashCardOpen(...)
                 let l:c = l:c + 1 
             endwhile
             silent exe "normal! dG"
-            " silent exe "normal " . "50000" . "dd"
 
 	    	let l:n = search("FLASH",'b')
 			silent exe "normal gg0"
@@ -88,6 +93,21 @@ function! g:FlashCardOpen(...)
 
         endif
         echom " <F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
+        exe "set paste"
+endfunction
+
+function! g:FlashCardOpenRaw(...)
+        exe "set nopaste"
+        let l:f = a:1
+        if filereadable(l:f)
+            silent exe "tabnew " . l:f
+            silent exe "set buftype=nowrite"
+            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
+            nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
+			call g:FlashCardDisplay()
+            exe "setlocal readonly"
+        endif
+        echom " <F1> Quit FlashCard"
         exe "set paste"
 endfunction
 
