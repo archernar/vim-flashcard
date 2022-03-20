@@ -104,6 +104,8 @@ function! g:FlashCardOpenRaw(...)
             silent exe "set buftype=nowrite"
             nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
+            nnoremap <silent> <buffer> <F2> <ESC>
+            nnoremap <silent> <buffer> <F3> <ESC>
 			call g:FlashCardDisplay()
             exe "setlocal readonly"
         endif
