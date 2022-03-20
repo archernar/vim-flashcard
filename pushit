@@ -11,6 +11,7 @@ rm $Tmp  >/dev/null 2>&1
 git add plugin/Flashcard.vim
 git add plugin/1.fc
 git add pushit
+git add mktest
 git add README.md
 git commit -m "Update"
 git push -u origin main

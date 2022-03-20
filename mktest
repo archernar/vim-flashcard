@@ -1,0 +1,37 @@
+
+ls | gawk '
+BEGIN {
+    print ""
+    print "FLASHCARD"
+
+    for (i=0;i<250;i++) {
+     str_generator = "tr -dc '[:alnum:]' </dev/urandom | head -c 64"
+     str_generator | getline random_str
+     close(str_generator)
+         print "CARD " i
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print random_str
+         print "FLASHCARD"
+    }
+    print ""
+
+}
+
+
+END {
+
+}
+
+
+{
+
+}'
