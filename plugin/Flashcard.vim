@@ -15,8 +15,16 @@ function! g:FlashCard(...)
 endfunction
 
 function! g:FlashCardRaw(...)
-     let g:FLASHCARDFILE = a:1
-     call g:FlashCardOpenRaw(g:FLASHCARDFILE)
+    if ( a:0 == 0 )
+        let l:name = input('Enter file name: ')
+        let g:FLASHCARDFILE = l:name
+     else
+        let g:FLASHCARDFILE = a:1
+     endif
+
+     if filereadable(g:FLASHCARDFILE)
+         call g:FlashCardOpenRaw(g:FLASHCARDFILE)
+     endif
 endfunction
 
 
