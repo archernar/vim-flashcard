@@ -1,4 +1,14 @@
 
+FLASHCARD 0
+0 Remember
+
+Ctrl-]           - move to definition of item undercurstor per ctags
+
+git fetch origin - the list of branches and commit history is downloaded
+                   from GitHub and synchronised into the clone on your machine.i
+                   Doing a fetch won’t affect your local branches.
+                   You can fetch as much as you like.
+gv - last visual selection
 FLASHCARD 1
 1 Moving by Characters, Words and Tokens
 
