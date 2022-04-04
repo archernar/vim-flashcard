@@ -9,6 +9,10 @@ git fetch origin - the list of branches and commit history is downloaded
                    Doing a fetch won’t affect your local branches.
                    You can fetch as much as you like.
 gv - last visual selection
+
+start vim with no plugins  -   vim -u NONE
+
+
 FLASHCARD 1
 1 Moving by Characters, Words and Tokens
 
