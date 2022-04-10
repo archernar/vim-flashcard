@@ -1,5 +1,5 @@
 # vim-flashcard plugin
-i    Fast and easy on screen flashcard reference
+    Fast and easy on screen flashcard reference
     Setup as many cards as you like, on whatever topics you like
 
 ## Screen Shot                                                                                                                   
@@ -7,7 +7,7 @@ i    Fast and easy on screen flashcard reference
 
 ### Installation
 
-Use your plugin manager
+    Use your plugin manager
 
 #### Example:  VruUndle
 
