@@ -69,7 +69,7 @@ function! g:FlashCardOpen(...)
 
             let l:fcc = g:FlashCardCount()
             nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
-            silent exe "nnoremap <silent> <buffer> e    :e " . l:filename
+            silent exe "nnoremap <silent> <buffer> e    :e " . l:filename ."<cr>"
             nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
             nnoremap <silent> <buffer> <F2> :call g:FlashCardNext(-1)<cr>
             nnoremap <silent> <buffer> <F3> :call g:FlashCardNext(1)<cr>
