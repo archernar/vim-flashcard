@@ -8,6 +8,7 @@ rm $Tmp  >/dev/null 2>&1
 
 
 #-------------------------------------------------------------------------------------
+git add Flashcard.png
 git add plugin/Flashcard.vim
 git add plugin/1.fc
 git add pushit
