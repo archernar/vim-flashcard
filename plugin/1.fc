@@ -252,4 +252,27 @@ toupper(str)
 Returns a copy of the string str, with all the lower-case characters in str translated to their
 corresponding upper-case counterparts. Non-alphabetic characters are left unchanged. 
 FLASHCARD
+https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html#:~:text=A%20Regular%20Expression%20(or%20Regex,strings%20and%20rejects%20the%20rest.
+A regex sub-expression may be followed by an occurrence indicator (aka repetition operator):
+
+?: The preceding item is optional and matched at most once (i.e., occurs 0 or 1 times or optional).
+*: The preceding item will be matched zero or more times, i.e., 0+
++: The preceding item will be matched one or more times, i.e., 1+
+{m}: The preceding item is matched exactly m times.
+{m,}: The preceding item is matched m or more times, i.e., m+
+{m,n}: The preceding item is matched at least m times, but not more than n times.
+For example: The regex xy{2,4} accepts "xyy", "xyyy" and "xyyyy".
+
+2.8  Occurrence Indicators (Repetition Operators): +, *, ?, {m}, {m,n}, {m,}
+A regex sub-expression may be followed by an occurrence indicator (aka repetition operator):
+
+?: The preceding item is optional and matched at most once (i.e., occurs 0 or 1 times or optional).
+*: The preceding item will be matched zero or more times, i.e., 0+
++: The preceding item will be matched one or more times, i.e., 1+
+{m}: The preceding item is matched exactly m times.
+{m,}: The preceding item is matched m or more times, i.e., m+
+{m,n}: The preceding item is matched at least m times, but not more than n times.
+For example: The regex xy{2,4} accepts "xyy", "xyyy" and "xyyyy".
+
+FLASHCARD
 
