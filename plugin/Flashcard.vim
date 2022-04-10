@@ -6,7 +6,7 @@
 
 let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
-let g:dashcount = 60 
+let g:dashcount = 88 
 
 function! g:FlashCard(...)
      let g:FLASHCARDNUM  = 1
@@ -100,7 +100,6 @@ function! g:FlashCardOpen(...)
             exe "setlocal readonly"
 
         endif
-        echom " <F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
         exe "set paste"
 endfunction
 
@@ -131,9 +130,10 @@ function! g:FlashCardDisplay()
     silent exe "normal! \<Esc>"
 
     let l:n = len(getline('.'))
-
-    if ( g:dashcount < len(getline('.')) )
-        let g:dashcount = len(getline('.'))
+    if (1==0)
+        if ( g:dashcount < len(getline('.')) )
+            let g:dashcount = len(getline('.'))
+        endif
     endif
 
     let l:dent = 12 
