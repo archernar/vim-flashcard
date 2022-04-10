@@ -153,9 +153,9 @@ function! g:FlashCardDisplay()
     silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
 
     let l:tag = "git@github.com:archernar/vim-flashcard.git"
-    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)) . l:tag . "\<Esc>" 
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
-    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)) . l:tag . "\<Esc>" 
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     silent exe "normal! gg0"
     silent exe "set nopaste"
 endfunction
