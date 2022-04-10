@@ -8,17 +8,11 @@
 ### Installation
 
     Use your plugin manager
+    Map call g:FlashCard(<full path of flashcard file>)
 
-#### Example:  VruUndle
+#### Example:  Vundle
 
     Plugin 'archernar/vim-flashcard'
-
-
-
-
-### Map call g:FlashCard(<full path of flashcard file>)
-        
-#### Example:
     nnoremap <F3> :call g:FlashCard($HOME . "/1.fc")<cr>
 
 
