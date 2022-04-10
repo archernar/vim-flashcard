@@ -1,5 +1,7 @@
 # vim-flashcard plugin
 Fast and easy on screen flashcard reference
+## Screen Shot                                                                                                                   
+![alt text](https://github.com/archernar/vim-flashcard/blob/main/Flashcard.png)
 
 ### Installation
 
