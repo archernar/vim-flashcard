@@ -12,6 +12,8 @@ function! g:DumbCard(...)
      let g:FLASHCARDNUM  = 1
      let g:FLASHCARDFILE = a:1
      call g:DumbCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+	 call g:DumbCardDisplay()
+     exe "setlocal readonly"
 endfunction
 function! g:FlashCard(...)
      let g:FLASHCARDNUM  = 1
@@ -76,8 +78,6 @@ function! g:DumbCardOpen(...)
             nnoremap <silent> <buffer> <F3> <esc>
             nnoremap <silent> <buffer> <F4> <esc>
             silent exe "normal gg0"
-			call g:DumbCardDisplay()
-            exe "setlocal readonly"
         endif
         exe "set paste"
 endfunction
