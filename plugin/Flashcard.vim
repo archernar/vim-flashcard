@@ -13,6 +13,7 @@ function! g:DumbCard(...)
      let g:FLASHCARDFILE = a:1
      call g:DumbCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 	 call g:DumbCardDisplay()
+     silent exe "normal gg0"
      exe "setlocal readonly"
 endfunction
 function! g:FlashCard(...)
