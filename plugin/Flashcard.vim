@@ -75,6 +75,7 @@ function! g:DumbCardOpen(...)
             silent exe "normal gg0"
 			call g:DumbCardDisplay()
             exe "setlocal readonly"
+            echom "DUMB"
 
         endif
         exe "set paste"
