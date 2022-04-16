@@ -8,6 +8,11 @@ let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
 let g:dashcount = 88 
 
+function! g:DumbCard(...)
+     let g:FLASHCARDNUM  = 1
+     let g:FLASHCARDFILE = a:1
+     call g:DumbCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+endfunction
 function! g:FlashCard(...)
      let g:FLASHCARDNUM  = 1
      let g:FLASHCARDFILE = a:1
@@ -57,6 +62,23 @@ function! g:FlashCardCount()
     return l:c
 endfunction
 
+function! g:DumbCardOpen(...)
+        let l:filename = a:1
+        let l:cardnumber = a:2
+        exe "set nopaste"
+        let l:f = $HOME . "/1.fc"
+        let l:f = l:filename
+        if filereadable(l:f)
+            silent exe "tabnew " . l:f
+            silent exe "set buftype=nowrite"
+            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
+            silent exe "normal gg0"
+			call g:DumbCardDisplay()
+            exe "setlocal readonly"
+
+        endif
+        exe "set paste"
+endfunction
 function! g:FlashCardOpen(...)
         let l:filename = a:1
         let l:cardnumber = a:2
@@ -120,6 +142,42 @@ function! g:FlashCardOpenRaw(...)
         exe "set paste"
 endfunction
 
+function! g:DumbCardDisplay()
+    silent exe "set paste"
+    silent exe "normal! gg0VG"
+    silent exe "normal! \"ay"
+    silent exe "normal! gg0VG"
+    silent exe "%s/./a/g"
+    silent exe "sort!"
+    silent exe "normal! \<Esc>"
+
+    let l:n = len(getline('.'))
+    if (1==0)
+        if ( g:dashcount < len(getline('.')) )
+            let g:dashcount = len(getline('.'))
+        endif
+    endif
+
+    let l:dent = 12 
+
+    silent exe "normal! gg0VGd"
+    silent exe "normal! \"ap"
+    silent exe "normal gg0"
+    silent exe "%s/^/" . repeat(" ", l:dent+2) . "/"
+    silent exe "normal gg0"
+    silent exe "normal! O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! 4O\<Esc>"
+    silent exe "normal! G0"
+    silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
+    silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+
+    let l:tag = "git@github.com:archernar/vim-flashcard.git"
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
+    let l:tag = "<F1> Quit FlashCard"
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
+    silent exe "normal! gg0"
+    silent exe "set nopaste"
+endfunction
 function! g:FlashCardDisplay()
     silent exe "set paste"
     silent exe "normal! gg0VG"
