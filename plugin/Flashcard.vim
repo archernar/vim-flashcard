@@ -66,7 +66,6 @@ function! g:DumbCardOpen(...)
         let l:filename = a:1
         let l:cardnumber = a:2
         exe "set nopaste"
-        let l:f = $HOME . "/1.fc"
         let l:f = l:filename
         if filereadable(l:f)
             silent exe "tabnew " . l:f
@@ -75,8 +74,6 @@ function! g:DumbCardOpen(...)
             silent exe "normal gg0"
 			call g:DumbCardDisplay()
             exe "setlocal readonly"
-            echom "DUMB"
-
         endif
         exe "set paste"
 endfunction
@@ -176,7 +173,7 @@ function! g:DumbCardDisplay()
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-    silent exe "normal! gg0"
+    silent exe "normal! G0"
     silent exe "set nopaste"
 endfunction
 function! g:FlashCardDisplay()
