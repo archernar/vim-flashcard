@@ -12,6 +12,22 @@ gv - last visual selection
 
 start vim with no plugins  -   vim -u NONE
 
+Git Branching 
+
+     $ git checkout -b <new branch name>
+         This is shorthand for:                                                                                                           
+             $ git branch <new branch name>                                                                                                               
+             $ git checkout <new branch name>                                                                                                             
+
+     Make edits and commit with
+     $ git commit -a -m 'comment'  
+
+     To merge back to main                                                                                 
+     $ git checkout <main branch>                                                                                                           
+     $ git merge <new branch name>
+
+     List Branches
+     $ git branch                                                                                                                       
 
 FLASHCARD 1
 1 Moving by Characters, Words and Tokens
