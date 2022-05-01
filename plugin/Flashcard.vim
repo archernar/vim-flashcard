@@ -21,6 +21,15 @@ function! g:FlashCard(...)
      let g:FLASHCARDFILE = a:1
      call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 endfunction
+function! g:FlashCardCloseOpen(...)
+     if filereadable(a:1)
+         let g:FLASHCARDNUM  = 1
+         let g:FLASHCARDFILE = a:1
+         silent exe "bd!"
+         call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+         echom ""
+     endif
+endfunction
 
 function! g:FlashCardRaw(...)
     if ( a:0 == 0 )
@@ -98,6 +107,15 @@ function! g:FlashCardOpen(...)
             nnoremap <silent> <buffer> <F2> :call g:FlashCardNext(-1)<cr>
             nnoremap <silent> <buffer> <F3> :call g:FlashCardNext(1)<cr>
             nnoremap <silent> <buffer> <F4> <esc>
+            nnoremap <silent> <buffer> <leader>1    :call g:FlashCardCloseOpen($FC1)<cr>
+            nnoremap <silent> <buffer> <leader>2    :call g:FlashCardCloseOpen($FC2)<cr>
+            nnoremap <silent> <buffer> <leader>3    :call g:FlashCardCloseOpen($FC3)<cr>
+            nnoremap <silent> <buffer> <leader>4    :call g:FlashCardCloseOpen($FC4)<cr>
+            nnoremap <silent> <buffer> <leader>5    :call g:FlashCardCloseOpen($FC5)<cr>
+            nnoremap <silent> <buffer> <leader>6    :call g:FlashCardCloseOpen($FC6)<cr>
+            nnoremap <silent> <buffer> <leader>7    :call g:FlashCardCloseOpen($FC7)<cr>
+            nnoremap <silent> <buffer> <leader>8    :call g:FlashCardCloseOpen($FC8)<cr>
+            nnoremap <silent> <buffer> <leader>9    :call g:FlashCardCloseOpen($FC9)<cr>
             silent exe "normal gg0"
 
             let g:FLASHCARDNUM  = l:cardnumber
