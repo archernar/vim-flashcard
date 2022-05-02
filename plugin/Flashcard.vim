@@ -111,11 +111,6 @@ function! g:FlashCardOpen(...)
             nnoremap <silent> <buffer> <leader>2    :call g:FlashCardCloseOpen($FC2)<cr>
             nnoremap <silent> <buffer> <leader>3    :call g:FlashCardCloseOpen($FC3)<cr>
             nnoremap <silent> <buffer> <leader>4    :call g:FlashCardCloseOpen($FC4)<cr>
-            nnoremap <silent> <buffer> <leader>5    :call g:FlashCardCloseOpen($FC5)<cr>
-            nnoremap <silent> <buffer> <leader>6    :call g:FlashCardCloseOpen($FC6)<cr>
-            nnoremap <silent> <buffer> <leader>7    :call g:FlashCardCloseOpen($FC7)<cr>
-            nnoremap <silent> <buffer> <leader>8    :call g:FlashCardCloseOpen($FC8)<cr>
-            nnoremap <silent> <buffer> <leader>9    :call g:FlashCardCloseOpen($FC9)<cr>
             silent exe "normal gg0"
 
             let g:FLASHCARDNUM  = l:cardnumber
@@ -236,11 +231,20 @@ function! g:FlashCardDisplay()
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
+    let l:tag = s:pb("1") . s:kh($FC1) . " " . s:pb("2") . s:kh($FC2)  . " " . s:pb("3") . s:kh($FC3)  . " " . s:pb("4") . s:kh($FC4)  
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     silent exe "normal! gg0"
     silent exe "set nopaste"
 endfunction
 
 
+function! s:kh(...)
+    return substitute(a:1, $HOME, "~", "")
+endfunction
+
+function! s:pb(...)
+    return "(" . a:1 .")" . " " 
+endfunction
 function! s:LogIt(...)
     silent exe "!echo 'Log:  " . a:1 .  "'>>/tmp/vimlog"
 endfunction
