@@ -227,6 +227,7 @@ function! g:FlashCardDisplay()
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
     silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
 
+    " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
     let l:tag = "git@github.com:archernar/vim-flashcard.git"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
