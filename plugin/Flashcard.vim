@@ -21,14 +21,35 @@ function! g:FlashCard(...)
      let g:FLASHCARDFILE = a:1
      call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
 endfunction
+
 function! g:FlashCardCloseOpen(...)
-     if filereadable(a:1)
-         let g:FLASHCARDNUM  = 1
-         let g:FLASHCARDFILE = a:1
          silent exe "bd!"
-         call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
-         echom ""
+         " ******************************************************************
+         " ****  See if the file contains a flashcard set of just text
+         " ******************************************************************
+         let l:f = a:1
+         let l:fcc = 0
+         if filereadable(l:f)
+            silent exe "tabnew " . l:f
+            silent exe "set buftype=nowrite"
+            let l:fcc = g:FlashCardCount()
+            silent exe "bd!"
+         endif
+
+     if (l:fcc > 0)
+         if filereadable(a:1)
+             let g:FLASHCARDNUM  = 1
+             let g:FLASHCARDFILE = a:1
+             call g:FlashCardOpen(g:FLASHCARDFILE, g:FLASHCARDNUM)
+         endif
+     else
+         if filereadable(a:1)
+             let g:FLASHCARDNUM  = 1
+             let g:FLASHCARDFILE = a:1
+             call g:DumbCard(g:FLASHCARDFILE, g:FLASHCARDNUM)
+         endif
      endif
+
 endfunction
 
 function! g:FlashCardRaw(...)
@@ -87,6 +108,10 @@ function! g:DumbCardOpen(...)
             nnoremap <silent> <buffer> <F2> <esc>
             nnoremap <silent> <buffer> <F3> <esc>
             nnoremap <silent> <buffer> <F4> <esc>
+            nnoremap <silent> <buffer> <leader>1    :call g:FlashCardCloseOpen($FC1)<cr>
+            nnoremap <silent> <buffer> <leader>2    :call g:FlashCardCloseOpen($FC2)<cr>
+            nnoremap <silent> <buffer> <leader>3    :call g:FlashCardCloseOpen($FC3)<cr>
+            nnoremap <silent> <buffer> <leader>4    :call g:FlashCardCloseOpen($FC4)<cr>
             silent exe "normal gg0"
         endif
         exe "set paste"
@@ -191,6 +216,8 @@ function! g:DumbCardDisplay()
     let l:tag = "git@github.com:archernar/vim-flashcard.git"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard"
+    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
+    let l:tag = s:pb("1") . s:kh($FC1) . " " . s:pb("2") . s:kh($FC2)  . " " . s:pb("3") . s:kh($FC3)  . " " . s:pb("4") . s:kh($FC4)  
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     silent exe "normal! G0"
     silent exe "set nopaste"
