@@ -271,7 +271,7 @@ function! s:kh(...)
 endfunction
 
 function! s:pb(...)
-    return "(" . a:1 .")" . " " 
+    return "<L " . a:1 . ">" . " " 
 endfunction
 function! s:LogIt(...)
     silent exe "!echo 'Log:  " . a:1 .  "'>>/tmp/vimlog"
