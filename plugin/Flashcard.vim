@@ -8,6 +8,41 @@ let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
 let g:dashcount = 88 
 
+" ******************************************************************
+" These method have been deprecated
+" ******************************************************************
+function! g:FlashCardOpenRawXXX(...)
+        exe "set nopaste"
+        let l:f = a:1
+        if filereadable(l:f)
+            silent exe "tabnew " . l:f
+            silent exe "set buftype=nowrite"
+            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
+            nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
+            nnoremap <silent> <buffer> <F2> <ESC>
+            nnoremap <silent> <buffer> <F3> <ESC>
+			call g:FlashCardDisplay()
+            exe "setlocal readonly"
+        endif
+        echom " <F1> Quit FlashCard"
+        exe "set paste"
+endfunction
+function! g:FlashCardRawXXX(...)
+    if ( a:0 == 0 )
+        let l:name = input('Enter file name: ')
+        let g:FLASHCARDFILE = l:name
+     else
+        let g:FLASHCARDFILE = a:1
+     endif
+
+     if filereadable(g:FLASHCARDFILE)
+         call g:FlashCardOpenRawXXX(g:FLASHCARDFILE)
+     endif
+endfunction
+" ******************************************************************
+" ******************************************************************
+
+
 function! g:DumbCard(...)
      let g:FLASHCARDNUM  = 1
      let g:FLASHCARDFILE = a:1
@@ -50,19 +85,6 @@ function! g:FlashCardCloseOpen(...)
          endif
      endif
 
-endfunction
-
-function! g:FlashCardRaw(...)
-    if ( a:0 == 0 )
-        let l:name = input('Enter file name: ')
-        let g:FLASHCARDFILE = l:name
-     else
-        let g:FLASHCARDFILE = a:1
-     endif
-
-     if filereadable(g:FLASHCARDFILE)
-         call g:FlashCardOpenRaw(g:FLASHCARDFILE)
-     endif
 endfunction
 
 
@@ -167,22 +189,6 @@ function! g:FlashCardOpen(...)
         exe "set paste"
 endfunction
 
-function! g:FlashCardOpenRaw(...)
-        exe "set nopaste"
-        let l:f = a:1
-        if filereadable(l:f)
-            silent exe "tabnew " . l:f
-            silent exe "set buftype=nowrite"
-            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
-            nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
-            nnoremap <silent> <buffer> <F2> <ESC>
-            nnoremap <silent> <buffer> <F3> <ESC>
-			call g:FlashCardDisplay()
-            exe "setlocal readonly"
-        endif
-        echom " <F1> Quit FlashCard"
-        exe "set paste"
-endfunction
 
 function! g:DumbCardDisplay()
     silent exe "set paste"
