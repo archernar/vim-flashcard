@@ -261,23 +261,42 @@ function! g:FlashCardDisplay()
     silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
 
     " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
+
     let l:tag = "git@github.com:archernar/vim-flashcard.git"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-    let l:tag = "<F1> Quit FlashCard, <F2> Previous FlashCard <F3> Next FlashCard"
+
+    let l:tag = s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard")
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-    let l:tag = s:pb("1") . s:kh($FC1) . " " . s:pb("2") . s:kh($FC2)  . " " . s:pb("3") . s:kh($FC3)  . " " . s:pb("4") . s:kh($FC4)  
+
+    let l:tag = s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4)) 
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
+
     silent exe "normal! gg0"
     silent exe "set nopaste"
 endfunction
 
+
+function! s:catter(...)
+    let l:n = 1
+    let l:sz = "" 
+    let l:delim = "" 
+    while l:n <= a:0
+        if get(a:, l:n, 0) == ","
+            let l:delim = ""
+        endif
+        let l:sz = l:sz . l:delim . get(a:, l:n, 0)
+        let l:n = l:n + 1
+        let l:delim = " "
+    endwhile
+    return l:sz
+endfunction
 
 function! s:kh(...)
     return substitute(a:1, $HOME, "~", "")
 endfunction
 
 function! s:pb(...)
-    return "<L " . a:1 . ">" . " " 
+    return "<L " . a:1 . ">"
 endfunction
 function! s:LogIt(...)
     silent exe "!echo 'Log:  " . a:1 .  "'>>/tmp/vimlog"
