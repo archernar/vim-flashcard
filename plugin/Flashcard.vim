@@ -253,9 +253,11 @@ function! g:FlashCardDisplay()
 
 
     " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
-    call s:tagline(l:dent,"git@github.com:archernar/vim-flashcard.git")
-    call s:tagline(l:dent, s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"))
-    call s:tagline(l:dent, s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4)))
+    call s:taglines(l:dent,"git@github.com:archernar/vim-flashcard.git",
+\                          s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"),
+\                          s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4))    )
+
+
 
     call s:nexec("gg0")
     call s:SetNoPaste()
@@ -295,6 +297,15 @@ function! s:catter(...)
         let l:delim = " "
     endwhile
     return l:sz
+endfunction
+
+function! s:taglines(...)
+    let l:n = 2
+    while l:n <= a:0
+        let l:sz = get(a:, l:n, 0)
+        silent exe "normal! o" . repeat(" ", a:1) . repeat(" ", g:dashcount-len(l:sz)+2) . l:sz . "\<Esc>" 
+        let l:n = l:n + 1
+    endwhile
 endfunction
 
 function! s:tagline(...)
