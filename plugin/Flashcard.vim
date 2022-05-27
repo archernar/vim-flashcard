@@ -213,7 +213,7 @@ function! g:DumbCardDisplay()
     silent exe "normal gg0"
     silent exe "%s/^/" . repeat(" ", l:dent+2) . "/"
     silent exe "normal gg0"
-    silent exe "normal! O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+    silent exe "normal! O" . "D" . repeat(" ", l:dent-1) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
     silent exe "normal! 4O\<Esc>"
     silent exe "normal! G0"
     silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
@@ -228,54 +228,58 @@ function! g:DumbCardDisplay()
     silent exe "normal! G0"
     silent exe "set nopaste"
 endfunction
-function! g:FlashCardDisplay()
-    silent exe "set paste"
-    silent exe "normal! gg0VG"
-    silent exe "normal! \"ay"
-    silent exe "normal! gg0VG"
-    silent exe "%s/./a/g"
-    silent exe "sort!"
-    silent exe "normal! \<Esc>"
 
-    let l:n = len(getline('.'))
-    if (1==0)
-        if ( g:dashcount < len(getline('.')) )
-            let g:dashcount = len(getline('.'))
-        endif
-    endif
+function! g:FlashCardDisplay()
 
     let l:dent = 12 
-"   if ( len(getline('.')) > 36)
-"       let l:dent = 2 
-"   endif
 
-    silent exe "normal! gg0VGd"
-    silent exe "normal! \"ap"
-    silent exe "normal gg0"
-    silent exe "%s/^/" . repeat(" ", l:dent+2) . "/"
-    silent exe "normal gg0"
-    silent exe "normal! O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
-    silent exe "normal! 4O\<Esc>"
-    silent exe "normal! G0"
-    silent exe "normal! " .  (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>"
-    silent exe "normal! o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+    call s:SetPaste()
+    call s:norm("gg0VG", "\"ay", "gg0VG")
+    call s:exec("%s/./a/g","sort!")
+    call s:norm("\<Esc>")
+
+    let l:n = len(getline('.'))
+    call s:norm("gg0VGd", "\"ap", "gg0")
+    call s:exec("%s/^/" . repeat(" ", l:dent+2) . "/")
+    call s:norm(
+\               "gg0",
+\               "O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>",
+\            	"4O\<Esc>",
+\            	"G0",
+\               (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>",
+\               "o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+\              )
+
 
     " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
+    call s:tagline(l:dent,"git@github.com:archernar/vim-flashcard.git")
+    call s:tagline(l:dent, s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"))
+    call s:tagline(l:dent, s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4)))
 
-    let l:tag = "git@github.com:archernar/vim-flashcard.git"
-    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-
-    let l:tag = s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard")
-    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-
-    let l:tag = s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4)) 
-    silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-
-    silent exe "normal! gg0"
-    silent exe "set nopaste"
+    call s:norm("gg0")
+    call s:SetNoPaste()
 endfunction
 
-
+function! s:SetPaste()
+    silent exe "set paste"
+endfunction
+function! s:SetNoPaste()
+    silent exe "set nopaste"
+endfunction
+function! s:exec(...)
+    let l:n = 1
+    while l:n <= a:0
+        silent exe  get(a:, l:n, 0)
+        let l:n = l:n + 1
+    endwhile
+endfunction
+function! s:norm(...)
+    let l:n = 1
+    while l:n <= a:0
+        silent exe  "normal! " . get(a:, l:n, 0)
+        let l:n = l:n + 1
+    endwhile
+endfunction
 function! s:catter(...)
     let l:n = 1
     let l:sz = "" 
@@ -289,6 +293,10 @@ function! s:catter(...)
         let l:delim = " "
     endwhile
     return l:sz
+endfunction
+
+function! s:tagline(...)
+    silent exe "normal! o" . repeat(" ", a:1) . repeat(" ", g:dashcount-len(a:2)+2) . a:2 . "\<Esc>" 
 endfunction
 
 function! s:kh(...)
