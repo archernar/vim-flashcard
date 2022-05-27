@@ -234,14 +234,15 @@ function! g:FlashCardDisplay()
     let l:dent = 12 
 
     call s:SetPaste()
-    call s:norm("gg0VG", "\"ay", "gg0VG")
+    call s:nexec("gg0VG", "\"ay", "gg0VG")
     call s:exec("%s/./a/g","sort!")
-    call s:norm("\<Esc>")
+    call s:nexec("\<Esc>")
 
     let l:n = len(getline('.'))
-    call s:norm("gg0VGd", "\"ap", "gg0")
+    call s:nexec("gg0VGd", "\"ap", "gg0")
     call s:exec("%s/^/" . repeat(" ", l:dent+2) . "/")
-    call s:norm(
+
+    call s:nexec(
 \               "gg0",
 \               "O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>",
 \            	"4O\<Esc>",
@@ -256,7 +257,7 @@ function! g:FlashCardDisplay()
     call s:tagline(l:dent, s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"))
     call s:tagline(l:dent, s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4)))
 
-    call s:norm("gg0")
+    call s:nexec("gg0")
     call s:SetNoPaste()
 endfunction
 
@@ -273,13 +274,14 @@ function! s:exec(...)
         let l:n = l:n + 1
     endwhile
 endfunction
-function! s:norm(...)
+function! s:nexec(...)
     let l:n = 1
     while l:n <= a:0
         silent exe  "normal! " . get(a:, l:n, 0)
         let l:n = l:n + 1
     endwhile
 endfunction
+
 function! s:catter(...)
     let l:n = 1
     let l:sz = "" 
