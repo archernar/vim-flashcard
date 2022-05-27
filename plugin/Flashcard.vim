@@ -230,14 +230,13 @@ function! g:DumbCardDisplay()
 endfunction
 
 function! g:FlashCardDisplay()
+    " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
 
     let l:dent = 12 
-
     call s:SetPaste()
     call s:nexec("gg0VG", "\"ay", "gg0VG")
     call s:exec("%s/./a/g","sort!")
     call s:nexec("\<Esc>")
-
     let l:n = len(getline('.'))
     call s:nexec("gg0VGd", "\"ap", "gg0")
     call s:exec("%s/^/" . repeat(" ", l:dent+2) . "/")
@@ -251,13 +250,9 @@ function! g:FlashCardDisplay()
 \               "o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
 \              )
 
-
-    " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
     call s:taglines(l:dent,"git@github.com:archernar/vim-flashcard.git",
 \                          s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"),
 \                          s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4))    )
-
-
 
     call s:nexec("gg0")
     call s:SetNoPaste()
