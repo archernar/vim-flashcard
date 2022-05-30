@@ -8,41 +8,6 @@ let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
 let g:dashcount = 88 
 
-" ******************************************************************
-" These method have been deprecated
-" ******************************************************************
-function! g:FlashCardOpenRawXXX(...)
-        exe "set nopaste"
-        let l:f = a:1
-        if filereadable(l:f)
-            silent exe "tabnew " . l:f
-            silent exe "set buftype=nowrite"
-            nnoremap <silent> <buffer> q    :call g:FlashCardExit()<cr>
-            nnoremap <silent> <buffer> <F1> :call g:FlashCardExit()<cr>
-            nnoremap <silent> <buffer> <F2> <ESC>
-            nnoremap <silent> <buffer> <F3> <ESC>
-			call g:FlashCardDisplay()
-            exe "setlocal readonly"
-        endif
-        echom " <F1> Quit FlashCard"
-        exe "set paste"
-endfunction
-function! g:FlashCardRawXXX(...)
-    if ( a:0 == 0 )
-        let l:name = input('Enter file name: ')
-        let g:FLASHCARDFILE = l:name
-     else
-        let g:FLASHCARDFILE = a:1
-     endif
-
-     if filereadable(g:FLASHCARDFILE)
-         call g:FlashCardOpenRawXXX(g:FLASHCARDFILE)
-     endif
-endfunction
-" ******************************************************************
-" ******************************************************************
-
-
 function! g:DumbCard(...)
      let g:FLASHCARDNUM  = 1
      let g:FLASHCARDFILE = a:1
@@ -134,6 +99,7 @@ function! g:DumbCardOpen(...)
             nnoremap <silent> <buffer> <leader>2    :call g:FlashCardCloseOpen($FC2)<cr>
             nnoremap <silent> <buffer> <leader>3    :call g:FlashCardCloseOpen($FC3)<cr>
             nnoremap <silent> <buffer> <leader>4    :call g:FlashCardCloseOpen($FC4)<cr>
+            nnoremap <silent> <buffer> <leader>5    :call g:FlashCardCloseOpen($FC5)<cr>
             silent exe "normal gg0"
         endif
         exe "set paste"
@@ -158,6 +124,7 @@ function! g:FlashCardOpen(...)
             nnoremap <silent> <buffer> <leader>2    :call g:FlashCardCloseOpen($FC2)<cr>
             nnoremap <silent> <buffer> <leader>3    :call g:FlashCardCloseOpen($FC3)<cr>
             nnoremap <silent> <buffer> <leader>4    :call g:FlashCardCloseOpen($FC4)<cr>
+            nnoremap <silent> <buffer> <leader>5    :call g:FlashCardCloseOpen($FC5)<cr>
             silent exe "normal gg0"
 
             let g:FLASHCARDNUM  = l:cardnumber
@@ -223,7 +190,7 @@ function! g:DumbCardDisplay()
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     let l:tag = "<F1> Quit FlashCard"
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
-    let l:tag = s:pb("1") . s:kh($FC1) . " " . s:pb("2") . s:kh($FC2)  . " " . s:pb("3") . s:kh($FC3)  . " " . s:pb("4") . s:kh($FC4)  
+    let l:tag = s:pb("1") . s:kh($FC1) . " " . s:pb("2") . s:kh($FC2)  . " " . s:pb("3") . s:kh($FC3)  . " " . s:pb("4") . s:kh($FC4) . " " . s:pb("5") . s:kh($FC5)
     silent exe "normal! o" . repeat(" ", l:dent) . repeat(" ", g:dashcount-len(l:tag)+2) . l:tag . "\<Esc>" 
     silent exe "normal! G0"
     silent exe "set nopaste"
@@ -252,7 +219,7 @@ function! g:FlashCardDisplay()
 
     call s:taglines(l:dent,"git@github.com:archernar/vim-flashcard.git",
 \                          s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"),
-\                          s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4))    )
+\                          s:catter(s:pb("1"),s:kh($FC1),",",s:pb("2"),s:kh($FC2),",",s:pb("3"),s:kh($FC3),",",s:pb("4"),s:kh($FC4),",",s:pb("5"),s:kh($FC5)))
 
     call s:nexec("gg0")
     call s:SetNoPaste()
@@ -266,17 +233,21 @@ function! s:SetNoPaste()
 endfunction
 function! s:exec(...)
     let l:n = 1
+    let l:sz = "" 
     while l:n <= a:0
+        let l:sz = l:sz . get(a:, l:n, 0)
         silent exe  get(a:, l:n, 0)
         let l:n = l:n + 1
     endwhile
 endfunction
 function! s:nexec(...)
     let l:n = 1
+    let l:sz = "" 
     while l:n <= a:0
-        silent exe  "normal! " . get(a:, l:n, 0)
+        let l:sz = l:sz . get(a:, l:n, 0)
         let l:n = l:n + 1
     endwhile
+    silent exe  "normal! " . l:sz
 endfunction
 
 function! s:catter(...)
