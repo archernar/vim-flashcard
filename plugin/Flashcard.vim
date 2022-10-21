@@ -6,7 +6,7 @@
 
 let g:FLASHCARDFILE = ""
 let g:FLASHCARDNUM = 1
-let g:dashcount = 88 
+let g:dashcount = 106
 
 function! g:DumbCard(...)
      let g:FLASHCARDNUM  = 1
@@ -173,7 +173,7 @@ function! g:DumbCardDisplay()
         endif
     endif
 
-    let l:dent = 12 
+    let l:dent = 6 
 
     silent exe "normal! gg0VGd"
     silent exe "normal! \"ap"
@@ -198,24 +198,42 @@ endfunction
 
 function! g:FlashCardDisplay()
     " https://stackoverflow.com/questions/4864073/using-substitute-on-a-variable
-
-    let l:dent = 12 
+    let l:lccV = nr2char(0x02551)
+    let l:lccH = nr2char(0x02550)
+    let l:lccTLC = nr2char(0x02554)
+    let l:lccBLC = nr2char(0x0255A)
+    let l:lccTRC = nr2char(0x02557)
+    let l:lccBRC = nr2char(0x0255D)
+    let l:moe1 = nr2char(0xe2) 
+    let l:moe2 = nr2char(0x80)
+    let l:moe3 = nr2char(0x93)
+    let l:dent = 6 
     call s:SetPaste()
     call s:nexec("gg0VG", "\"ay", "gg0VG")
     call s:exec("%s/./a/g","sort!")
     call s:nexec("\<Esc>")
     let l:n = len(getline('.'))
     call s:nexec("gg0VGd", "\"ap", "gg0")
-    call s:exec("%s/^/" . repeat(" ", l:dent+2) . "/")
+    " *******************************************************************************************************
+    exe "normal! gg0"
+				if ( 1 == 2)
+					call s:nexec(
+				\               "O" . "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" ."\<Esc>",
+				\               "O" . "         1         2         3         4         5         6         7         8         9         1" ."\<Esc>")
+				endif
 
+    call g:MasterPadder(g:dashcount-1)
+    call s:exec("%s/$/" . l:lccV . "/")
+    " *******************************************************************************************************
+    call s:exec("%s/^/" . repeat(" ", l:dent+0) . l:lccV . " /")
     call s:nexec(
 \               "gg0",
-\               "O" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>",
+\               "O" . repeat(" ", l:dent) . l:lccTLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccTRC ."\<Esc>",
 \            	"4O\<Esc>",
 \            	"G0",
-\               (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>",
-\               "o" . repeat(" ", l:dent) . "+ " . repeat("-", g:dashcount) . " +\<Esc>"
+\               "o" . repeat(" ", l:dent) . l:lccBLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccBRC . "\<Esc>"
 \              )
+" \               (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>",
 
     call s:taglines(l:dent,"git@github.com:archernar/vim-flashcard.git",
 \                          s:catter("<F1> Quit FlashCard, ", "<F2> Previous FlashCard, ", "<F3> Next FlashCard"),
