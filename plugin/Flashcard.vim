@@ -227,13 +227,16 @@ function! g:FlashCardDisplay()
     call g:MasterPadder(g:dashcount-1)
     call s:exec("%s/$/" . l:lccV . "/")
     " *******************************************************************************************************
-    call s:exec("%s/^/" . repeat(" ", l:dent+0) . l:lccV . " /")
+
+    let l:quack = nr2char(0x02593)
+    call s:exec("%s/^/" . repeat(l:quack, l:dent+0) . l:lccV . " /")
     call s:nexec(
 \               "gg0",
-\               "O" . repeat(" ", l:dent) . l:lccTLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccTRC ."\<Esc>",
-\            	"4O\<Esc>",
+\               "O" . repeat(l:quack, l:dent) . l:lccTLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccTRC ."\<Esc>",
+\               "O" . repeat(l:quack, g:dashcount+8) . "\<Esc>",
+\               "O" . repeat(l:quack, g:dashcount+8) . "\<Esc>",
 \            	"G0",
-\               "o" . repeat(" ", l:dent) . l:lccBLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccBRC . "\<Esc>"
+\               "o" . repeat(l:quack, l:dent) . l:lccBLC . "" . repeat(l:lccH, g:dashcount) . "" . l:lccBRC . "\<Esc>"
 \              )
 " \               (((26-line('.'))>0) ? 26-line('.') : 0) . "o\<Esc>",
 
@@ -245,6 +248,7 @@ function! g:FlashCardDisplay()
     call s:SetNoPaste()
 endfunction
 
+"\            	"0O\<Esc>",
 function! s:SetPaste()
     silent exe "set paste"
 endfunction
@@ -287,9 +291,10 @@ endfunction
 
 function! s:taglines(...)
     let l:n = 2
+    let l:quack = nr2char(0x02593)
     while l:n <= a:0
         let l:sz = get(a:, l:n, 0)
-        silent exe "normal! o" . repeat(" ", a:1) . repeat(" ", g:dashcount-len(l:sz)+2) . l:sz . "\<Esc>" 
+        silent exe "normal! o" . repeat(l:quack, a:1) . repeat(" ", g:dashcount-len(l:sz)+2) . l:sz . "\<Esc>" 
         let l:n = l:n + 1
     endwhile
 endfunction
