@@ -1,6 +1,8 @@
 "
 "
-" nnoremap <F3> :call g:FlashCard($HOME . "/1.fc")<cr> 
+" Map These
+" nnoremap         <F3> :call g:FlashCard($FC1)<cr>
+" nnoremap <leader><F3> :call g:UnFlashCard()<cr>
 "
 "
 
